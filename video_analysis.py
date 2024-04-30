@@ -4,9 +4,6 @@ from deepface import DeepFace
 import os
 from pytube import YouTube
 import pandas as pd
-import matplotlib.pyplot as plt
-import urllib.parse
-import time
 
 
 def create_emotion_graph(emotions_excel_path):
