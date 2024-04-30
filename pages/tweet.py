@@ -1,6 +1,4 @@
 import streamlit as st
-import streamlit_scrollable_textbox as stx
-from streamlit.components.v1 import html
 import tweet_analysis as twa
 import pandas as pd
 

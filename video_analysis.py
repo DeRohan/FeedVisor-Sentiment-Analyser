@@ -70,7 +70,7 @@ def process_video_with_emotion_analysis(video_path, output_path):
 
         # Save DataFrame to Excel
         excel_output_path = os.path.splitext(output_path)[0] + "_emotions.csv"
-        df.to_excel(excel_output_path, index=False)
+        df.to_csv(excel_output_path, index=False)
 
         return True
     else:
@@ -111,7 +111,7 @@ def main(url):
         if process_video_with_emotion_analysis(video_path, f"{emotions_output_path}.mp4"):
             # st.write("Video processed successfully!")
             # st.write("Download the processed video [here](downloads/Emotions_With_Hands.mp4)")
-            emotions_excel_path = f"{emotions_output_path}_emotions.xlsx"
+            emotions_excel_path = f"{emotions_output_path}_emotions.csv"
             # st.write("Download the emotions data [here](downloads/Emotions_With_Hands_emotions.xlsx)")
             # st.write("Creating emotion analysis graph...")
             analysis = create_emotion_graph(emotions_excel_path) #Analysis DataFrame

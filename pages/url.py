@@ -1,6 +1,4 @@
 import streamlit as st
-import streamlit_scrollable_textbox as stx
-from streamlit.components.v1 import html
 import video_analysis as va
 
 
@@ -32,6 +30,8 @@ def main():
 
             # Display tweets DataFrame on the left
             with col1:
+                st.subheader("Video Player")
+                st.video(video)
             #     with st.expander("Retrieved Tweets", expanded=True):
                     # for i, tweet in enumerate(tweets[['Username', 'Text', 'Likes', 'Retweets']].iterrows(), start=1):
                     #     formatted_tweet = format_tweet(tweet[1])
