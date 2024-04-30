@@ -1,8 +1,15 @@
 import streamlit as st
 import streamlit_scrollable_textbox as stx
 from streamlit.components.v1 import html
-import video_analysis as va
+import tweet_analysis as twa
+import pandas as pd
 
+def format_tweet(tweet):
+    formatted_tweet = f"Username: @{tweet['Username']}\n" \
+                      f"Tweet: {tweet['Text']}\n" \
+                      f"Likes: {tweet['Likes']}\n" \
+                      f"Retweets: {tweet['Retweets']}\n"
+    return formatted_tweet
 
 def main():
     st.set_page_config(page_title="FeedVisor: Find Intentions!", layout="wide", initial_sidebar_state="collapsed", page_icon="🖥️")
@@ -20,29 +27,28 @@ def main():
     </style>
     """
     st.markdown(page_html, unsafe_allow_html=True)
-    query = st.text_input("", placeholder="Enter a URL to Analyse", label_visibility="collapsed")
+    query = st.text_input("", placeholder="Enter Query for Tweets.", label_visibility="collapsed")
     if st.button("Analyse Now!"):
         if query.startswith("https://") or query.startswith("http://"):
-            video, analysis = va.main(query)
-            class_counts = analysis['Emotion'].value_counts().reset_index()
-            class_counts.columns = ['Sentiment Class', 'Number of Frames']
+            st.error("Invalid Input. Please Re-Enter Your Query")
+        else:
+            tweets = twa.main(query)
+            class_counts = tweets['Class'].value_counts().reset_index()
+            class_counts.columns = ['Sentiment Class', 'Number of Tweets']
 
             # Plot sentiment distribution using an area chart
             col1, col2 = st.columns([2, 3])
 
             # Display tweets DataFrame on the left
             with col1:
-            #     with st.expander("Retrieved Tweets", expanded=True):
-                    # for i, tweet in enumerate(tweets[['Username', 'Text', 'Likes', 'Retweets']].iterrows(), start=1):
-                    #     formatted_tweet = format_tweet(tweet[1])
-                    #     st.text_area(f"Tweet {i}", formatted_tweet, height=200)
-                pass
+                with st.expander("Retrieved Tweets", expanded=True):
+                    for i, tweet in enumerate(tweets[['Username', 'Text', 'Likes', 'Retweets']].iterrows(), start=1):
+                        formatted_tweet = format_tweet(tweet[1])
+                        st.text_area(f"Tweet {i}", formatted_tweet, height=200)
             # Display area chart on the right
             with col2:
                 st.subheader("Sentiment Distribution")
                 st.area_chart(class_counts.set_index("Sentiment Class"))
-        else:
-            st.error("Invalid Input. Please Re-Enter Your Query")
 
 if __name__ == "__main__":
     main()
