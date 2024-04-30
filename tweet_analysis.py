@@ -1,7 +1,5 @@
 import pandas as pd
 import re
-from textblob import TextBlob 
-from wordcloud import WordCloud
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
