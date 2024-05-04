@@ -1,5 +1,6 @@
 from Modules.mods import *
 import os
+from pytube import YouTube
 
 
 def create_emotion_graph(emotions_excel_path):
