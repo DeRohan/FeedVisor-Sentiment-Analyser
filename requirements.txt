@@ -7,3 +7,4 @@ opencv-python==4.9.0.80
 deepface==0.0.90
 pytube==15.0.0
 tf-keras==2.16.0
+streamlit-extras==0.4.2
