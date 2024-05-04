@@ -1,6 +1,4 @@
-import streamlit as st
-import tweet_analysis as twa
-import pandas as pd
+from Modules.mods import *
 
 def format_tweet(tweet):
     formatted_tweet = f"Username: @{tweet['Username']}\n" \

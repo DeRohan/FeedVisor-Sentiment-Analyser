@@ -1,8 +1,4 @@
-import pandas as pd
-import re
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from Modules.mods import *
 
 #Pre-Processing Data from Dataset
 def readData(file_path="Datasets/twitter_dataset.csv"): #File path is optional

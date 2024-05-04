@@ -1,4 +1,4 @@
-import streamlit as st
+from Modules.mods import *
 
 #Main Home Page
 def main():

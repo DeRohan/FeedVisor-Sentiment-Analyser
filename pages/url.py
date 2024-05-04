@@ -1,6 +1,4 @@
-import streamlit as st
-import video_analysis as va
-
+from Modules.mods import *
 
 def main():
     st.set_page_config(page_title="FeedVisor: Find Intentions!", layout="wide", initial_sidebar_state="collapsed", page_icon="🖥️")
