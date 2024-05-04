@@ -30,9 +30,7 @@ def main():
 
     with col2:
         if st.button("Video Analyser"):
-            # Redirect to Page 2
-            # subprocess.run(["streamlit", "run", "pages/url.py"])
-            pass
+            switch_page("pages/url.py")
 
 
 if __name__ == "__main__":
