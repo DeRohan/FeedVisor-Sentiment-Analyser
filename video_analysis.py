@@ -5,9 +5,9 @@ import os
 from deepface import DeepFace
 
 import signal
-from signal import signal, SIGPIPE, SIG_DFL
 
-signal(SIGPIPE, SIG_DFL)
+signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+
 
 def create_emotion_graph(emotions_excel_path):
     df = pd.read_csv(emotions_excel_path)
