@@ -3,8 +3,11 @@ from pytube import YouTube
 import cv2
 import os
 from deepface import DeepFace
-from signal import signal, SIGPIPE, SIG_DFL   
-signal(SIGPIPE,SIG_DFL) 
+
+import signal
+from signal import signal, SIGPIPE, SIG_DFL
+
+signal(SIGPIPE, SIG_DFL)
 
 def create_emotion_graph(emotions_excel_path):
     df = pd.read_csv(emotions_excel_path)
