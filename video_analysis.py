@@ -1,12 +1,10 @@
-from Modules.mods import *
 from pytube import YouTube
 import cv2
 import os
 from deepface import DeepFace
+import pandas as pd
+import streamlit as st
 
-import signal
-
-signal.signal(signal.SIGPIPE, signal.SIG_DFL)
 
 
 def create_emotion_graph(emotions_excel_path):
