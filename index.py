@@ -30,7 +30,7 @@ def main():
 
     with col2:
         if st.button("Video Analyser"):
-            switch_page("pages/url.py")
+            switch_page("url")
 
 
 if __name__ == "__main__":
