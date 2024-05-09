@@ -2,7 +2,6 @@ from Modules.mods import *
 
 #Main Home Page
 def main():
-    # CSS Styling 
     st.set_page_config(page_title="FeedVisor: Find Intentions!", layout="wide", initial_sidebar_state="collapsed", page_icon="🖥️")  
     page_bg_img = """
         <style>

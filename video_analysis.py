@@ -6,7 +6,6 @@ import pandas as pd
 import streamlit as st
 
 
-
 def create_emotion_graph(emotions_excel_path):
     df = pd.read_csv(emotions_excel_path)
     return df
@@ -79,9 +78,7 @@ def download_youtube_video(video_url, output_path):
     st.spinner("Loading...")
     yt = YouTube(video_url)
     yt.streams.filter(file_extension='mp4').first().download(output_path=output_path, filename="video.mp4")
-    # st.write("Video downloaded successfully!")
 
-# Function to read video file as bytes
 def read_video(video_path):
     if os.path.exists(video_path):
         with open(video_path, "rb") as file:
@@ -107,11 +104,7 @@ def main(url):
                 
         emotions_output_path = os.path.join(output_path, "Emotions_With_Hands")
         if process_video_with_emotion_analysis(video_path, f"{emotions_output_path}.mp4"):
-            # st.write("Video processed successfully!")
-            # st.write("Download the processed video [here](downloads/Emotions_With_Hands.mp4)")
             emotions_excel_path = f"{emotions_output_path}_emotions.csv"
-            # st.write("Download the emotions data [here](downloads/Emotions_With_Hands_emotions.xlsx)")
-            # st.write("Creating emotion analysis graph...")
             analysis = create_emotion_graph(emotions_excel_path) #Analysis DataFrame
             video_output_file = emotions_output_path + ".mp4"
             return video_output_file, analysis
