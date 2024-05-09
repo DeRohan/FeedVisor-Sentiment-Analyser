@@ -60,22 +60,11 @@ def main(query):
     tb_analysis = result_tweets
     
     #Vader Sentiment Analyser
-    vader_analysis['Polarity'] = vader_analysis['Text'].apply(getVaderSentiment)
-    vader_analysis['Class'] = vader_analysis['Polarity'].apply(vader_analysis_score)
-    class_counts = vader_analysis['Class'].value_counts()
-
-
-
-    # # Plotting the barh chart
-    # plt.figure(figsize=(10, 6))
-    # class_counts.plot(kind='barh', color='red')
-    # plt.title(f'Tweets Based on Keyword {query} using Vader Sentiment Analyser')
-    # plt.ylabel('Sentiment Class')
-    # plt.xlabel('Number of Tweets')
-    # plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
-    # plt.grid(axis='y')  # Add gridlines along the y-axis
-    # plt.tight_layout() 
-    # plt.show()
+    try:
+        vader_analysis['Polarity'] = vader_analysis['Text'].apply(getVaderSentiment)
+        vader_analysis['Class'] = vader_analysis['Polarity'].apply(vader_analysis_score)
+    except KeyError:
+        return KeyError
     return vader_analysis
 
 # if __name__ == "__main__":

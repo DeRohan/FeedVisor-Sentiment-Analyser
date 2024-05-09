@@ -17,8 +17,11 @@ def main():
     """
     st.markdown(page_html, unsafe_allow_html=True)
     query = st.text_input("", placeholder="Enter a URL to Analyse", label_visibility="collapsed")
-    if st.button("Analyse Now!"):
-        if query.startswith("https://") or query.startswith("http://"):
+    btn = st.button("Analyse Now!")
+    if btn:
+        if len(query) <=0:
+            st.error("Error. Please Enter a URL.")
+        elif query.startswith("https://") or query.startswith("http://"):
             video, analysis = va.main(query)
             class_counts = analysis['Emotion'].value_counts().reset_index()
             class_counts.columns = ['Sentiment Class', 'Number of Frames']

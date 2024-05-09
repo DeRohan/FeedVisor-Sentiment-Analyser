@@ -23,28 +23,32 @@ def main():
     </style>
     """
     st.markdown(page_html, unsafe_allow_html=True)
-    query = st.text_input("", placeholder="Enter Query for Tweets.", label_visibility="collapsed")
-    if st.button("Analyse Now!"):
-        if query.startswith("https://") or query.startswith("http://"):
+    query = st.text_input("", placeholder="Enter Query for Tweets.", label_visibility="collapsed")  
+    
+    btn1 = st.button("Analyse Now!")
+    if btn1:
+        if len(query) <=0:
+            st.error("Please Enter any Textual Query.")
+        elif query.startswith("https://") or query.startswith("http://"):
             st.error("Invalid Input. Please Re-Enter Your Query")
         else:
             tweets = twa.main(query)
-            class_counts = tweets['Class'].value_counts().reset_index()
-            class_counts.columns = ['Sentiment Class', 'Number of Tweets']
+            if type(tweets) == pd.DataFrame:
+                class_counts = tweets['Class'].value_counts().reset_index()
+                class_counts.columns = ['Sentiment Class', 'Number of Tweets']
+                col1, col2 = st.columns([2, 3])
 
-            # Plot sentiment distribution using an area chart
-            col1, col2 = st.columns([2, 3])
-
-            # Display tweets DataFrame on the left
-            with col1:
-                with st.expander("Retrieved Tweets", expanded=True):
-                    for i, tweet in enumerate(tweets[['Username', 'Text', 'Likes', 'Retweets']].iterrows(), start=1):
-                        formatted_tweet = format_tweet(tweet[1])
-                        st.text_area(f"Tweet {i}", formatted_tweet, height=200)
-            # Display area chart on the right
-            with col2:
-                st.subheader("Sentiment Distribution")
-                st.area_chart(class_counts.set_index("Sentiment Class"))
+                with col1:
+                    with st.expander("Retrieved Tweets", expanded=True):
+                        for i, tweet in enumerate(tweets[['Username', 'Text', 'Likes', 'Retweets']].iterrows(), start=1):
+                            formatted_tweet = format_tweet(tweet[1])
+                            st.text_area(f"Tweet {i}", formatted_tweet, height=200)
+                with col2:
+                    st.subheader("Sentiment Distribution")
+                    st.area_chart(class_counts.set_index("Sentiment Class"))
+            else:
+                st.error("No Tweets Were Found using Query")
+            
 
 if __name__ == "__main__":
     main()
