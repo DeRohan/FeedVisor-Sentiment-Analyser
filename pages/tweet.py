@@ -22,6 +22,7 @@ def main():
         }
     </style>
     """
+    st.write("<h4><center>Tweet Analyser<h4>", page_icon="🦅",unsafe_allow_html=True)
     st.markdown(page_html, unsafe_allow_html=True)
     query = st.text_input("", placeholder="Enter Query for Tweets.", label_visibility="collapsed")  
     

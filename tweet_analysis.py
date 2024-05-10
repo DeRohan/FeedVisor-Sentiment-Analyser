@@ -57,8 +57,7 @@ def main(query):
     # query = input("Enter your Query: ")
     result_tweets = get_tweets(query, tf_idf, data, vector)
     vader_analysis = result_tweets
-    tb_analysis = result_tweets
-    
+
     #Vader Sentiment Analyser
     try:
         vader_analysis['Polarity'] = vader_analysis['Text'].apply(getVaderSentiment)

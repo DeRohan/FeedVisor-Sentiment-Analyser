@@ -8,7 +8,9 @@ import streamlit as st
 
 def create_emotion_graph(emotions_excel_path):
     df = pd.read_csv(emotions_excel_path)
-    return df
+    if len(df) > 1:
+        return df
+    return False, None
 # Function to detect faces and analyze emotions
 def detect_and_analyze_faces(frame, frame_number):
     emotions = []
@@ -38,12 +40,11 @@ def process_video_with_emotion_analysis(video_path, output_path):
     frame_list = []
     emotions_list = []
     frame_numbers = []
-
-    for i in range(1000):
+    frames = 1500
+    for i in range(frames):
         ret, frame = capture.read()
         if not ret:
             break
-        
         frame_with_faces, frame_emotions, frame_nums = detect_and_analyze_faces(frame, i)
         frame_list.append(frame_with_faces)
         emotions_list.extend(frame_emotions)
@@ -68,7 +69,6 @@ def process_video_with_emotion_analysis(video_path, output_path):
         # Save DataFrame to Excel
         excel_output_path = os.path.splitext(output_path)[0] + "_emotions.csv"
         df.to_csv(excel_output_path, index=False)
-
         return True
     else:
         return False
@@ -90,11 +90,6 @@ def read_video(video_path):
 
 
 def main(url):
-    # Retrieve URL from query parameter and decode it
-    # encoded_url = st.query_params.get("url", [""])[0]
-    # url = urllib.parse.unquote(url)
-    
-    # st.write(url)  # Check if URL is correctly retrieved
     
     if url:
         output_path = "downloads"  
@@ -105,11 +100,14 @@ def main(url):
         emotions_output_path = os.path.join(output_path, "Emotions_With_Hands")
         if process_video_with_emotion_analysis(video_path, f"{emotions_output_path}.mp4"):
             emotions_excel_path = f"{emotions_output_path}_emotions.csv"
-            analysis = create_emotion_graph(emotions_excel_path) #Analysis DataFrame
-            video_output_file = emotions_output_path + ".mp4"
-            return video_output_file, analysis
+            non_empty, analysis = create_emotion_graph(emotions_excel_path) #Analysis DataFrame
+            if not non_empty:
+                video_output_file = emotions_output_path + ".mp4"
+                return video_output_file, analysis
+            else:
+                return None, None
         else:
-            st.error("Error processing video.")
+            return None, None
 
                     
                 
