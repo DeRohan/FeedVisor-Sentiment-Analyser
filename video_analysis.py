@@ -100,12 +100,9 @@ def main(url):
         emotions_output_path = os.path.join(output_path, "Emotions_With_Hands")
         if process_video_with_emotion_analysis(video_path, f"{emotions_output_path}.mp4"):
             emotions_excel_path = f"{emotions_output_path}_emotions.csv"
-            non_empty, analysis = create_emotion_graph(emotions_excel_path) #Analysis DataFrame
-            if not non_empty:
-                video_output_file = emotions_output_path + ".mp4"
-                return video_output_file, analysis
-            else:
-                return None, None
+            analysis = create_emotion_graph(emotions_excel_path) #Analysis DataFrame
+            video_output_file = emotions_output_path + ".mp4"
+            return video_output_file, analysis
         else:
             return None, None
 

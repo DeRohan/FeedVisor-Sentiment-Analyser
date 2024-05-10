@@ -28,18 +28,18 @@ def main():
             if youtube_pattern.match(query):
                     
                 video, analysis = va.main(query)
-                if video!=None and analysis!=None:
-                    class_counts = analysis['Emotion'].value_counts().reset_index()
-                    class_counts.columns = ['Sentiment Class', 'Number of Frames']
-                    col1, col2 = st.columns([2, 3])
-                    with col1:
-                        st.subheader("Video Player")
-                        st.video(video)
-                    with col2:
-                        st.subheader("Sentiment Distribution")
-                        st.area_chart(class_counts.set_index("Sentiment Class"))
-                else:
-                    st.error("Error processing video. Please enter any other Video URL.")
+                # if video!=None and analysis!=None:
+                class_counts = analysis['Emotion'].value_counts().reset_index()
+                class_counts.columns = ['Sentiment Class', 'Number of Frames']
+                col1, col2 = st.columns([2, 3])
+                with col1:
+                    st.subheader("Video Player")
+                    st.video(video)
+                with col2:
+                    st.subheader("Sentiment Distribution")
+                    st.area_chart(class_counts.set_index("Sentiment Class"))
+                # else:
+                #     st.error("Error processing video. Please enter any other Video URL.")
             else:
                 st.error("Error. Please only Enter YouTube Video URLs.\nWe are planning to expand to other Platforms soon...")
         else:
